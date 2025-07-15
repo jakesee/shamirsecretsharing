@@ -4,9 +4,142 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hello World</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/unittest.css">
+    <!-- Load JS files in correct order for globals, no modules -->
+    <script src="js/dom.js"></script>
+    <script src="js/sss.js"></script>
+    <script src="js/jsQR.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/unittest.js"></script>
 </head>
 <body>
-    <h1>Hello World</h1>
-    <p>This is a static page served by GitHub Pages.</p>
+    <nav class="app-nav app-nav--top" role="navigation">
+        <ul class="app-nav__list">
+            <li class="app-nav__item">
+                <a href="#home" class="app-nav__link" aria-label="Split Secret">
+                    <span class="app-nav__icon">✂️</span>
+                    <span class="app-nav__text">Split</span>
+                </a>
+            </li>
+            <li class="app-nav__item">
+                <a href="#features" class="app-nav__link" aria-label="Reconstruct Secret">
+                    <span class="app-nav__icon">🧩</span>
+                    <span class="app-nav__text">Reconstruct</span>
+                </a>
+            </li>
+            <li class="app-nav__item">
+                <a href="#about" class="app-nav__link" aria-label="Scan QR">
+                    <span class="app-nav__icon">📷</span>
+                    <span class="app-nav__text">Scan QR</span>
+                </a>
+            </li>
+            <li class="app-nav__item">
+                <a href="#unittest" class="app-nav__link" aria-label="Unit Tests">
+                    <span class="app-nav__icon">🧪</span>
+                    <span class="app-nav__text">Tests</span>
+                </a>
+            </li>
+            <li class="app-nav__item">
+                <a href="#contact" class="app-nav__link" aria-label="Contact">
+                    <span class="app-nav__icon">👤</span>
+                    <span class="app-nav__text">Contact</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <main class="app-main">
+        <section id="home" class="app-section">
+            <h1>Shamir Secret Sharing Demo</h1>
+            <h2 class="app-section__title">Split Your Secret</h2>
+            <div class="app-input-group">
+                <label for="inputText" class="app-label">Enter your data:</label>
+                <textarea id="inputText" class="app-textarea" rows="6" placeholder="Type or paste your text here..."></textarea>
+                <div id="inputErrorMsg" class="app-error" role="alert"></div>
+                <div class="app-row app-row--horizontal">
+                    <label for="inputX" class="app-label">x (minimum parts to reconstruct):</label>
+                    <input type="number" id="inputX" class="app-input" min="2" value="2" style="width:80px;">
+                    <label for="inputY" class="app-label">y (total parts):</label>
+                    <input type="number" id="inputY" class="app-input" min="2" value="3" style="width:80px;">
+                    <button id="submitBtn" class="app-btn" style="margin-left:1em;">Split Secret</button>
+                </div>
+            </div>
+            <div id="result" class="app-result" aria-live="polite"></div>
+            <div class="app-result__desc">Below are your secret parts. Safekeep each hex string securely.</div>
+        </section>
+        <section id="features" class="app-section">
+            <h2 class="app-section__title">Reconstruct Your Secret</h2>
+            <div class="app-input-group">
+                <label for="inputParts" class="app-label">Paste your hex parts below (one per line):</label>
+                <textarea id="inputParts" class="app-textarea" rows="6" placeholder="Paste hex strings here..."></textarea>
+                <button id="reconstructBtn" class="app-btn">Reconstruct Secret</button>
+            </div>
+            <div id="reconstructResult" class="app-result" aria-live="polite"></div>
+        </section>
+        <section id="about" class="app-section">
+            <h2 class="app-section__title">Scan QR Code</h2>
+            <div class="app-input-group">
+                <button id="activateCameraBtn" class="app-btn">Activate Camera & Scan QR</button>
+                <div id="scanWidget" style="display:none;">
+                    <div id="cameraContainer" style="margin-top:1em; position:relative;">
+                        <video id="qrVideo" class="qr-video" playsinline aria-label="Camera preview"></video>
+                        <canvas id="qrCanvas" style="display:none;"></canvas>
+                        <div class="qr-frame" id="qrFrame" aria-hidden="true">
+                            <div class="qr-frame-corner qr-frame-corner--tl"></div>
+                            <div class="qr-frame-corner qr-frame-corner--tr"></div>
+                            <div class="qr-frame-corner qr-frame-corner--bl"></div>
+                            <div class="qr-frame-corner qr-frame-corner--br"></div>
+                        </div>
+                    </div>
+                    <div id="scanResult" class="app-result" aria-live="polite" style="margin-top:1em;"></div>
+                    <div id="scanInstructions" style="color:#555;font-size:0.95em;margin-top:0.5em;">Scanned QR code data will be appended to the shares input below.</div>
+                </div>
+            </div>
+        </section>
+        <section id="contact" class="app-section">
+            <h2>Contact</h2>
+            <p><strong>Name:</strong> Jake See</p>
+        </section>
+        <section id="unittest" class="app-section">
+            <h2 class="app-section__title">Run Unit Tests</h2>
+            <button id="runTestsBtn" class="app-btn">Run Unit Tests</button>
+            <div id="testResults" class="app-result" aria-live="polite" style="margin-top:1em;"></div>
+        </section>
+    </main>
+<!-- All JS logic is now in js/index.js and js/unittest.js -->
+    <nav class="app-nav app-nav--bottom" role="navigation">
+        <ul class="app-nav__list">
+            <li class="app-nav__item">
+                <a href="#home" class="app-nav__link" aria-label="Split Secret">
+                    <span class="app-nav__icon">✂️</span>
+                    <span class="app-nav__text">Split</span>
+                </a>
+            </li>
+            <li class="app-nav__item">
+                <a href="#features" class="app-nav__link" aria-label="Reconstruct Secret">
+                    <span class="app-nav__icon">🧩</span>
+                    <span class="app-nav__text">Reconstruct</span>
+                </a>
+            </li>
+            <li class="app-nav__item">
+                <a href="#about" class="app-nav__link" aria-label="Scan QR">
+                    <span class="app-nav__icon">📷</span>
+                    <span class="app-nav__text">Scan QR</span>
+                </a>
+            </li>
+            <li class="app-nav__item">
+                <a href="#unittest" class="app-nav__link" aria-label="Unit Tests">
+                    <span class="app-nav__icon">🧪</span>
+                    <span class="app-nav__text">Tests</span>
+                </a>
+            </li>
+            <li class="app-nav__item">
+                <a href="#contact" class="app-nav__link" aria-label="Contact">
+                    <span class="app-nav__icon">👤</span>
+                    <span class="app-nav__text">Contact</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 </body>
 </html>

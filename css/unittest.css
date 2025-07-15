@@ -1,0 +1,69 @@
+/* Unit test result coloring */
+.test-pass {
+    color: #fff;
+    background: #2ecc40;
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin: 2px 0;
+    font-weight: bold;
+}
+.test-fail {
+    color: #fff;
+    background: #e74c3c;
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin: 2px 0;
+    font-weight: bold;
+}
+.test-info {
+    color: #333;
+    background: #f4f4f4;
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin: 2px 0;
+}
+.test-title {
+    font-size: 1em;
+    font-weight: bold;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.test-toggle {
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-left: 8px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+    line-height: 1;
+    align-self: center;
+}
+.test-toggle:focus {
+    outline: 2px solid #007acc;
+}
+.test-debug {
+    font-size: 0.95em;
+    margin-left: 0;
+    margin-bottom: 4px;
+    border-radius: 0 0 3px 3px;
+    padding: 8px 8px 4px 8px;
+    border: none;
+    border-top: 1px solid rgba(0,0,0,0.12);
+}
+.test-pass .test-debug {
+    background: #2ecc40;
+    color: #fff;
+}
+.test-fail .test-debug {
+    background: #e74c3c;
+    color: #fff;
+}
+.test-info .test-debug {
+    background: #f4f4f4;
+    color: #333;
+}
